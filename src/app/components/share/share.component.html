@@ -84,7 +84,7 @@
                 <th>Price</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-item (mousedown)="onMouseDown($event, product)" (mouseup)="onMouseUp()">
+        <ng-template pTemplate="body" let-item>
             <tr [pSelectableRow]="item">
                 <td>{{item.name}}</td>
                 <td>${{item.price}}</td>

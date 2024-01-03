@@ -162,22 +162,8 @@ export class ShareComponent implements OnInit {
     console.log(this.payers_list)
   }
 
-  onMouseDown(event: MouseEvent, product: item): void {
-    this.pressTimer = setTimeout(() => {
-      // Handle long press functionality
-      console.log(`Long press on item with code: ${product.name}`);
-      // Add your custom functionality here
-    }, 1000); // Adjust the duration (in milliseconds) as needed
-  }
-
-  onMouseUp(): void {
-    console.log
-    clearTimeout(this.pressTimer);
-  }
 
   onItemSelect(event: any): void {
-    clearTimeout(this.pressTimer);
-    // Rest of the onItemSelect logic
   }
 
 }
