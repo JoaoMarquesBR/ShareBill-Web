@@ -1,0 +1,96 @@
+<section>
+    <div class="card flex justify-content-center">
+        <button (click)="showDialog()" pButton type="button" class="p-button-raised p-button-rounded">Add Payer</button>
+    </div>
+
+    <p-dialog header="Title" [(visible)]="display">
+        <div class="col-12 md:col-4">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input type="text" [(ngModel)]="add_payer" pInputText placeholder="Username">
+            </div>
+        </div>
+
+        <br>
+        <button (click)="cancelPayer()" pButton type="button" class="p-button-raised p-button-rounded">cancel</button>
+        <button (click)="confirmPayer()" pButton type="button" class="p-button-raised p-button-rounded">confirm</button>
+    </p-dialog>
+
+    <p-table [(selection)]="selected_player" selectionMode="single" dataKey="code" [value]="payers_list"
+        [tableStyle]="{'max-width': '20rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+                <th>Bill</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-payer>
+            <tr [pSelectableRow]="selected_player">
+                <td>{{payer.name}}</td>
+                <td>${{payer.bill}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</section>
+
+<section>
+    <div class="card flex justify-content-center">
+        <button (click)="showItemDialog()" pButton type="button" class="p-button-raised p-button-rounded">Add
+            Item</button>
+    </div>
+
+    <p-dialog header="Item" [(visible)]="itemDisplay">
+        <div class="col-12 md:col-4">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input type="text" [(ngModel)]="add_item_name" pInputText placeholder="Item">
+
+                <br>
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <p-inputNumber [(ngModel)]="add_item_price" mode="currency" currency="USD"
+                    locale="en-US"></p-inputNumber>
+
+            </div>
+        </div>
+
+        <div>
+            <div *ngFor="let category of players_list_name" class="field-checkbox">
+                <p-checkbox [label]="category" name="group" [value]="category"
+                    [(ngModel)]="selected_payers"></p-checkbox>
+            </div>
+        </div>
+
+
+        <br>
+        <button (click)="cancelItem()" pButton type="button" class="p-button-raised p-button-rounded">cancel</button>
+        <button (click)="confirmItem()" pButton type="button" class="p-button-raised p-button-rounded">confirm</button>
+    </p-dialog>
+
+
+    <p-dialog header="Title" [(visible)]="item_information_display">
+        <p>Item: {{selected_item.name}} </p>
+        <p>Price: ${{selected_item.price}} </p>
+        <div *ngFor="let item of selected_item.payers">
+            <li>{{item}}</li>
+        </div>
+    </p-dialog>
+
+    <p-table [value]=" items_list" [(selection)]="selected_item" selectionMode="single" dataKey="name"
+        [tableStyle]="{'max-width': '20rem'}" (onRowSelect)="onItemSelect($event)">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item (mousedown)="onMouseDown($event, product)" (mouseup)="onMouseUp()">
+            <tr [pSelectableRow]="item">
+                <td>{{item.name}}</td>
+                <td>${{item.price}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+
+</section>
