@@ -27,7 +27,7 @@ export class ShareComponent implements OnInit {
 
   display: boolean = false;
   itemDisplay: boolean = false;
-  item_information_display: boolean = true;
+  item_information_display: boolean = false;
   private pressTimer: any;
 
   selected_player!: payer;
@@ -70,6 +70,8 @@ export class ShareComponent implements OnInit {
       this.calculateItems();
     }
 
+    console.log("initiaded with ")
+    console.log(this.selected_item)
   }
 
   showDialog() {
@@ -82,6 +84,7 @@ export class ShareComponent implements OnInit {
 
   showItemDialog() {
     this.selected_payers = []
+    console.log("itemxx")
 
     if (!this.itemDisplay)
       this.itemDisplay = true;
@@ -109,6 +112,7 @@ export class ShareComponent implements OnInit {
 
     this.payers_list.push(new_payer)
     localStorage.setItem(this.payer_storage, JSON.stringify(this.payers_list));
+    this.players_list_name.push(new_payer.name)
 
     this.add_payer = "";
     this.showDialog();
@@ -138,7 +142,7 @@ export class ShareComponent implements OnInit {
   }
 
   cancelPayer() {
-    this.showItemDialog();
+    this.showDialog();
   }
 
 
@@ -164,6 +168,18 @@ export class ShareComponent implements OnInit {
 
 
   onItemSelect(event: any): void {
+    this.item_information_display = true;
+  }
+
+  onDialogHide() {
+    //nothing for now
+  }
+
+  clear() {
+    localStorage.clear();
+    this.items_list = []
+    this.payers_list = []
+    this.players_list_name = []
   }
 
 }

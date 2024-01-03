@@ -1,3 +1,7 @@
+<p-button (click)="clear()" label="Clear" severity="danger"></p-button>
+
+<br>
+<br>
 <section>
     <div class="card flex justify-content-center">
         <button (click)="showDialog()" pButton type="button" class="p-button-raised p-button-rounded">Add Payer</button>
@@ -67,11 +71,11 @@
     </p-dialog>
 
 
-    <p-dialog header="Title" [(visible)]="item_information_display">
+    <p-dialog header="Item" [(visible)]="item_information_display" (onHide)="onDialogHide()">
         <p>Item: {{selected_item.name}} </p>
         <p>Price: ${{selected_item.price}} </p>
-        <div *ngFor="let item of selected_item.payers">
-            <li>{{item}}</li>
+        <div *ngFor="let payer of selected_item.payers">
+            <li>{{payer}}</li>
         </div>
     </p-dialog>
 
